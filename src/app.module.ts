@@ -2,12 +2,23 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClassController } from './add-class/add-class.controller';
 import { ClassModule } from './add-class/add-class.module';
+import { SubjectModule } from './subject/subject.module';
+import { DepartmentModule } from './department/department.module';
+import { StudentModule } from './student/student.module';
+import { TeacherModule } from './teacher/teacher.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     ClassModule,
+    SubjectModule,
+    DepartmentModule,
+    StudentModule,
+    TeacherModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       database: 'rms',
@@ -17,7 +28,8 @@ import { ClassModule } from './add-class/add-class.module';
       username: 'root',
       autoLoadEntities: true,
       synchronize: true
-    })
+    }),
+
   ],
   controllers: [AppController],
   providers: [AppService],
