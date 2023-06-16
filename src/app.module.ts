@@ -8,8 +8,7 @@ import { DepartmentModule } from './department/department.module';
 import { StudentModule } from './student/student.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { ResultModule } from './result/result.module';
 
 @Module({
   imports: [
@@ -19,6 +18,7 @@ import { PassportModule } from '@nestjs/passport';
     StudentModule,
     TeacherModule,
     AuthModule,
+    ResultModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       database: 'rms',

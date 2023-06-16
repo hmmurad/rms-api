@@ -10,4 +10,6 @@ export class Subject {
 
     @Column()
     subjectname: string;
+
+    
 }

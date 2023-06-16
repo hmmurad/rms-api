@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Class } from 'src/add-class/add-class.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('departments')
 export class Department {
@@ -10,4 +11,10 @@ export class Department {
 
     @Column()
     departmentname: string;
+
+
+    @OneToMany(() => Class , (c) => c.department, {
+        eager: true
+    })
+    classes: Class[]
 }

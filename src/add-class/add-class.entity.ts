@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Department } from 'src/department/department.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('class')
 export class Class {
@@ -10,4 +11,11 @@ export class Class {
 
     @Column()
     classname: string;
+
+    @Column()
+    departmentId: number;
+
+
+    @ManyToOne(() => Department , (dept) => dept.classes)
+    department: Department
 }
