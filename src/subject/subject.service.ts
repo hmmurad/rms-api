@@ -20,8 +20,30 @@ export class SubjectService {
         }
     }
 
-    async getAll() {
-        return await this.repo.find()
+    async getAll(query?: string): Promise<Subject[]> {
+        const myQuery = await this.repo
+            .createQueryBuilder('subjects')
+            .leftJoinAndSelect('subjects.class', 'class')
+            .leftJoinAndSelect('subjects.teacher', 'teacher');
+
+        if (Object.keys(query).length !== 0 && query.constructor === Object) {
+            const queryKeys = Object.keys(query);
+
+            if (queryKeys.includes('teacher')) {
+                myQuery.andWhere('teacher.id = :teacherId', {
+                    teacherId: query['teacher'],
+                });
+            }
+
+            if (queryKeys.includes('class')) {
+                myQuery.andWhere('class.id = :classId', {
+                    classId: query['class'],
+                });
+            }
+            return await myQuery.getMany();
+        } else {
+            return await myQuery.getMany();
+        }
     }
 
     async find(id: number) {
@@ -43,6 +65,7 @@ export class SubjectService {
             throw new BadRequestException('No Subject found with this name!')
         }
     }
+
 
     async update(id: number, dto: SubjectModel) {
         const findSubject = await this.repo.findOneBy({ id })

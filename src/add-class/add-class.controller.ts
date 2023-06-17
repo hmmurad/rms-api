@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Patch, Post, Query, Param } from '@nestj
 import { ClassModel } from './add-class.model';
 import { ClassService } from './add-class.service';
 
-@Controller('class')
+@Controller('classes')
 export class ClassController {
     constructor(private classService: ClassService) { }
 

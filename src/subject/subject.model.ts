@@ -1,4 +1,6 @@
 export interface SubjectModel {
     subjectname: string,
-    createdAt: Date
+    createdAt: Date,
+    classId?: number,
+    teacherId?: number
 }
