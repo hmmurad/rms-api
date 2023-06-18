@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { StudentModel } from './student.model';
 import { StudentService } from './student.service';
 
@@ -7,8 +7,8 @@ export class StudentController {
     constructor(private studentService: StudentService) { }
 
     @Get()
-    get() {
-        return this.studentService.getAll()
+    get(@Query() query?: any) {
+        return this.studentService.getAll(query)
     }
 
     @Post()

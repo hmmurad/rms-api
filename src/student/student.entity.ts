@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Class } from 'src/add-class/add-class.entity';
+import { BeforeInsert, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('students')
 export class Student {
@@ -34,4 +35,8 @@ export class Student {
 
     @Column()
     classId: number;
+
+    @ManyToOne( () => Class, (c) => c.student  )
+    class:Class[]
+
 }
