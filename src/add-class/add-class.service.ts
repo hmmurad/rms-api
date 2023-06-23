@@ -20,9 +20,32 @@ export class ClassService {
         }
     }
 
-    async getAll() {
-        return await this.repo.find()
+    async getAll(query?: string): Promise<Class[]> {
+        const myQuery = await this.repo
+            .createQueryBuilder('classes')
+            .leftJoinAndSelect('classes.department', 'department')
+
+        if (Object.keys(query).length !== 0 && query.constructor === Object) {
+            const queryKeys = Object.keys(query);
+
+            if (queryKeys.includes('department')) {
+                myQuery.andWhere('department.id = :departmentId', {
+                    departmentId: query['department'],
+                });
+            }
+
+            // if (queryKeys.includes('class')) {
+            //     myQuery.andWhere('class.id = :classId', {
+            //         classId: query['class'],
+            //     });
+            // }
+            return await myQuery.getMany();
+        } else {
+            return await myQuery.getMany();
+        }
     }
+
+
 
     async find(id: number) {
         const findClass = await this.repo.findOneBy({ id })
@@ -43,6 +66,7 @@ export class ClassService {
             throw new BadRequestException('No class found with this name!')
         }
     }
+
 
     async update(id: number, dto: ClassModel) {
         const findClass = await this.repo.findOneBy({ id })

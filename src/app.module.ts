@@ -9,6 +9,9 @@ import { StudentModule } from './student/student.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { AuthModule } from './auth/auth.module';
 import { ResultModule } from './result/result.module';
+import { SessionModule } from './session/add-session.module';
+import { ExamModule } from './exam/add-exam.module';
+import { MarksModule } from './marks/marks.module';
 
 @Module({
   imports: [
@@ -19,6 +22,9 @@ import { ResultModule } from './result/result.module';
     TeacherModule,
     AuthModule,
     ResultModule,
+    SessionModule,
+    ExamModule,
+    MarksModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       database: 'rms',

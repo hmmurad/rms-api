@@ -1,5 +1,6 @@
 export interface StudentModel {
     fullname: string,
+    roll: string,
     email: string,
     dob: string,
     mobile: string,
@@ -7,5 +8,6 @@ export interface StudentModel {
     address: string,
     departmentId: number,
     classId: number,
+    sessionId?: number
     createdAt: Date
 }

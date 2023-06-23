@@ -20,9 +20,32 @@ export class StudentService {
         }
     }
 
-    async getAll() {
-        return await this.repo.find()
+    async getAll(query?: string): Promise<Student[]> {
+        const myQuery = await this.repo
+            .createQueryBuilder('students')
+            .leftJoinAndSelect('students.class', 'class')
+            .leftJoinAndSelect('students.department', 'department')
+
+        if (Object.keys(query).length !== 0 && query.constructor === Object) {
+            const queryKeys = Object.keys(query);
+
+            if (queryKeys.includes('class')) {
+                myQuery.andWhere('class.id = :classId', {
+                    classId: query['class'],
+                });
+            }
+
+            if (queryKeys.includes('department')) {
+                myQuery.andWhere('department.id = :deptId', {
+                    deptId: query['department'],
+                });
+            }
+            return await myQuery.getMany();
+        } else {
+            return await myQuery.getMany();
+        }
     }
+
 
     async find(id: number) {
         const findStudent = await this.repo.findOneBy({ id })

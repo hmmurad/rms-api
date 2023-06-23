@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Class } from 'src/add-class/add-class.entity';
+import { Department } from 'src/department/department.entity';
+import { Session } from 'src/session/add-session.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('students')
 export class Student {
@@ -10,6 +14,9 @@ export class Student {
 
     @Column()
     fullname: string;
+
+    @Column()
+    roll: string;
 
     @Column()
     email: string;
@@ -34,4 +41,19 @@ export class Student {
 
     @Column()
     classId: number;
+
+    @Column()
+    sessionId: number
+
+    @ManyToOne(() => Session, (s) => s.students)
+    session: Session
+
+    @ManyToOne(() => Class, (c) => c.students, {
+        eager: true
+    })
+    class: Class
+    @ManyToOne(() => Department, (d) => d.students)
+    department: Department
+
+
 }

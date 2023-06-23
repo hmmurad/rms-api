@@ -1,6 +1,7 @@
 import { Department } from 'src/department/department.entity';
+import { Student } from 'src/student/student.entity';
 import { Subject } from 'src/subject/subject.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('class')
 export class Class {
@@ -16,10 +17,18 @@ export class Class {
     @Column()
     departmentId: number;
 
+    @OneToMany(() => Subject, (sub) => sub.class, {
+        eager: true
+    })
+    subjects: Subject[]
+
+    @OneToMany(() => Student, (s) => s.class)
+    students: Student[]
 
     @ManyToOne(() => Department, (dept) => dept.classes)
     department: Department
 
-    @ManyToOne(() => Subject, (sub) => sub.class)
-    subjects: Subject[]
+
+
+
 }

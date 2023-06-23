@@ -7,8 +7,8 @@ export class ClassController {
     constructor(private classService: ClassService) { }
 
     @Get()
-    get() {
-        return this.classService.getAll()
+    get(@Query() query: any) {
+        return this.classService.getAll(query)
     }
 
     @Post()
