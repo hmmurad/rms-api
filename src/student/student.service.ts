@@ -43,6 +43,7 @@ export class StudentService {
             return await myQuery.getMany();
         } else {
             return await myQuery.getMany();
+            
         }
     }
 
