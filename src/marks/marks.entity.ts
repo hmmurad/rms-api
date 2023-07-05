@@ -1,5 +1,4 @@
-import { timestamp } from "rxjs";
-import { Column, Double, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('marks')
 

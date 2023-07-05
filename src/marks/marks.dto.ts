@@ -23,4 +23,6 @@ export class MarksModel {
     @IsDecimal()
     written: number
 
+    
+
 }
