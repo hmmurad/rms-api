@@ -4,12 +4,13 @@ export class MarksModel {
     @IsNotEmpty()
     studentId: number
     @IsNotEmpty()
+    userId: number
+    @IsNotEmpty()
     subjectId: number
     @IsNotEmpty()
     classId: number
     @IsNotEmpty()
     examId: number
-
     @IsNotEmpty()
     @IsNumber()
     attendance: number
@@ -22,7 +23,5 @@ export class MarksModel {
     @IsNotEmpty()
     @IsDecimal()
     written: number
-
-    
 
 }

@@ -1,4 +1,5 @@
 import { Department } from 'src/department/department.entity';
+import { Marks } from 'src/marks/marks.entity';
 import { Student } from 'src/student/student.entity';
 import { Subject } from 'src/subject/subject.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -16,6 +17,9 @@ export class Class {
 
     @Column()
     departmentId: number;
+
+    @OneToMany(() => Marks, (marks) => marks.class)
+    marks: Marks[]
 
     @OneToMany(() => Subject, (sub) => sub.class, {
         eager: true

@@ -1,4 +1,5 @@
 import { Class } from 'src/add-class/add-class.entity';
+import { User } from 'src/auth/auth.entity';
 import { Teacher } from 'src/teacher/teacher.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 
@@ -20,13 +21,13 @@ export class Subject {
     classId: number
 
     @Column()
-    teacherId: number
+    userId: number
 
     @ManyToOne(() => Class, (c) => c.subjects)
     class: Class
 
-    @ManyToOne(() => Teacher, (t) => t.subjects)
-    teacher: Teacher
+    @ManyToOne(() => User, (user) => user.subjects)
+    user: User
 
 
 

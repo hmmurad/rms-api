@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Param } from '@nestjs/common';
 import { MarksModel } from './marks.dto';
 import { MarksService } from './marks.service';
 
@@ -12,7 +12,19 @@ export class MarksController {
     }
 
     @Get('')
-    findAll() {
-        return this.marksService.getAll()
+    findAll(@Query() query?: any) {
+        return this.marksService.getAll(query)
     }
+
+    @Get('/results')
+    getResult() {
+        return this.marksService.getIResult()
+    }
+
+
+    @Get(':studentId')
+    get(@Param('studentId') studentId: any) {
+        return this.marksService.find(studentId)
+    }
+
 }

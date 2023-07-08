@@ -3,10 +3,10 @@ import { ResultService } from './result.service';
 
 @Controller('results')
 export class ResultController {
-    constructor( private resultService: ResultService){}
+    constructor(private resultService: ResultService) { }
 
     @Get()
-    get() {
-        return 'hrllo'
+    findAll() {
+        return this.resultService.getAll()
     }
 }

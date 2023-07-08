@@ -1,5 +1,5 @@
-import { Subject } from 'src/subject/subject.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('teachers')
 export class Teacher {
@@ -24,10 +24,7 @@ export class Teacher {
     @Column()
     gender: string;
 
-    @OneToMany(() => Subject, (s) => s.teacher, {
-        eager: true
-    })
-    subjects: Subject[]
+
 
 
 }

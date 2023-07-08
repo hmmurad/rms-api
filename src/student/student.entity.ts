@@ -1,8 +1,9 @@
 
 import { Class } from 'src/add-class/add-class.entity';
 import { Department } from 'src/department/department.entity';
+import { Marks } from 'src/marks/marks.entity';
 import { Session } from 'src/session/add-session.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('students')
 export class Student {
@@ -16,7 +17,7 @@ export class Student {
     fullname: string;
 
     @Column()
-    roll: string;
+    roll: number;
 
     @Column()
     email: string;
@@ -54,6 +55,8 @@ export class Student {
     class: Class
     @ManyToOne(() => Department, (d) => d.students)
     department: Department
+    @OneToMany(() => Marks, (marks) => marks.student)
+    marks: Marks[]
 
 
 }
