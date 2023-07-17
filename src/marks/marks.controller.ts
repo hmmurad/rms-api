@@ -27,4 +27,9 @@ export class MarksController {
         return this.marksService.find(studentId)
     }
 
+    @Get('/student/:studentId')
+    getOne(@Param('studentId') studentId: any) {
+        return this.marksService.findOne(studentId)
+    }
+
 }

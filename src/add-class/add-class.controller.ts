@@ -1,48 +1,86 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { Role } from 'src/auth/auth.model';
-import { JwtGuard } from 'src/auth/jwt.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { AuthGuard } from '@nestjs/passport';
 import { ClassModel } from './add-class.model';
 import { ClassService } from './add-class.service';
-import { AuthGuard } from '@nestjs/passport';
+import { currentUser } from 'src/auth/custom-user.decorator';
+import { User } from 'src/auth/auth.entity';
+import { CurrentUserGuard } from 'src/auth/current-user-guard';
+import { ACGuard, UseRoles } from 'nest-access-control';
 
 @Controller('classes')
 export class ClassController {
     constructor(private classService: ClassService) { }
 
+
     @Get()
-    get(@Query() query: any) {
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'read',
+        resource: 'class'
+    })
+    get(@Query() query: any, @currentUser() user: User) {
+        console.log(user);
         return this.classService.getAll(query)
     }
 
 
 
+
     @Post()
-    @UseGuards(AuthGuard('jwt'))
-    createPost(@Body() dto: ClassModel) {
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'create',
+        resource: 'class'
+    })
+    createPost(@Body() dto: ClassModel, @currentUser() user: User) {
+        console.log(user);
+
         return this.classService.create(dto)
     }
 
     @Get(':id')
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'read',
+        resource: 'class'
+    })
     findOneById(@Param('id') id: number) {
         return this.classService.find(id)
     }
 
     @Get(':classname')
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'read',
+        resource: 'class'
+    })
     findByClassname(@Param('classname') classname: string) {
         return this.classService.findByClassname(classname)
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'update',
+        resource: 'class'
+    })
 
     updateClass(@Param('id') id: number, @Body() dto: ClassModel) {
         return this.classService.update(id, dto)
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'delete',
+        resource: 'class'
+    })
 
     remove(@Param('id') id: number) {
         return this.classService.delete(id)

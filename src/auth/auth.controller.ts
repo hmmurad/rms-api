@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserModel } from './auth.model';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { JwtGuard } from './jwt.guard';
 import { currentUser } from './custom-user.decorator';
+import { CurrentUserGuard } from './current-user-guard';
+import { User } from './auth.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -16,17 +18,25 @@ export class AuthController {
 
     @Post('signin')
     async signin(@Body() dto: UserModel) {
-        const { user, token } = await this.authService.login(dto)
-        return { user, token }
+        const { token } = await this.authService.login(dto)
+        return { token }
 
     }
 
     //check auth status
     @Get('auth-status')
-    @UseGuards(JwtGuard)
-    authStatus(@currentUser() user: UserModel) {
+    @UseGuards(CurrentUserGuard)
+    authStatus(@currentUser() user: User) {
         return { status: !!user, user }
     }
+
+    // 
+    @Post('logout')
+    logout(@Req() req: Request, @Res() res: Response) {
+        console.log('res');
+
+    }
+
 
 
 }

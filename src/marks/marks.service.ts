@@ -62,10 +62,25 @@ export class MarksService {
     }
 
     async find(studentId: any) {
-        const findmarks = await this.repo.findOneBy({ studentId })
+        const findmarks = await this.repo.findBy({
+            studentId
+        })
 
         if (findmarks) {
-            return { message: 'Success', findmarks }
+            return findmarks
+        } else {
+            throw new BadRequestException('No marks found with this id!')
+        }
+    }
+    async findOne(studentId: any) {
+        const findmarks = await this.repo.find({
+            where: {
+                id: studentId
+            }
+        })
+
+        if (findmarks) {
+            return findmarks
         } else {
             throw new BadRequestException('No marks found with this id!')
         }

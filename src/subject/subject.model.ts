@@ -3,5 +3,5 @@ export interface SubjectModel {
     code: string,
     createdAt: Date,
     classId?: number,
-    teacherId?: number
+    userId?: number
 }

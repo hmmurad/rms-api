@@ -1,8 +1,8 @@
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
-import { Role } from "./auth.model";
 import { Marks } from "src/marks/marks.entity";
 import { Subject } from "src/subject/subject.entity";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UserRoles } from "./user.roles";
 
 @Entity('users')
 export class User {
@@ -12,20 +12,20 @@ export class User {
     @Column()
     email: string;
 
-    @Column()
+    @Column({ select: false })
     password: string
 
     @Column()
     fullname: string
 
-    @Column({ type: 'enum', enum: Role, default: Role.TEACHER })
-    role: Role
+    @Column({ type: 'enum', enum: UserRoles, default: UserRoles.Teacher })
+    roles: UserRoles
 
     @OneToMany(() => Marks, (marks) => marks.user)
     marks: Marks[]
 
     @OneToMany(() => Subject, (s) => s.user, {
-        eager: true
+        eager: true,
     })
     subjects: Subject[]
 

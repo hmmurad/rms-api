@@ -24,14 +24,14 @@ export class SubjectService {
         const myQuery = await this.repo
             .createQueryBuilder('subjects')
             .leftJoinAndSelect('subjects.class', 'class')
-            .leftJoinAndSelect('subjects.teacher', 'teacher');
+            .leftJoinAndSelect('subjects.user', 'user');
 
         if (Object.keys(query).length !== 0 && query.constructor === Object) {
             const queryKeys = Object.keys(query);
 
-            if (queryKeys.includes('teacher')) {
-                myQuery.andWhere('teacher.id = :teacherId', {
-                    teacherId: query['teacher'],
+            if (queryKeys.includes('user')) {
+                myQuery.andWhere('user.id = :userId', {
+                    userId: query['user'],
                 });
             }
 

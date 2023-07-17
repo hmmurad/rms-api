@@ -12,6 +12,9 @@ import { ResultModule } from './result/result.module';
 import { SessionModule } from './session/add-session.module';
 import { ExamModule } from './exam/add-exam.module';
 import { MarksModule } from './marks/marks.module';
+import { UserModule } from './user/user.module';
+import { AccessControlModule } from 'nest-access-control';
+import { roles } from './auth/user.roles';
 
 @Module({
   imports: [
@@ -25,6 +28,7 @@ import { MarksModule } from './marks/marks.module';
     SessionModule,
     ExamModule,
     MarksModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       database: 'rms',
@@ -35,6 +39,7 @@ import { MarksModule } from './marks/marks.module';
       autoLoadEntities: true,
       synchronize: true
     }),
+    AccessControlModule.forRoles(roles)
 
   ],
   controllers: [AppController],

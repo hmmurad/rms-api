@@ -1,7 +1,6 @@
 import { Class } from 'src/add-class/add-class.entity';
 import { User } from 'src/auth/auth.entity';
-import { Teacher } from 'src/teacher/teacher.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('subjects')
 export class Subject {

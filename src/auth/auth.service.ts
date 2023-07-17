@@ -41,11 +41,10 @@ export class AuthService {
         } else {
             if (await this.verifyPassword(dto.password, user.password)) {
                 const token = await this.jwtService.signAsync({
-                    email: user.email,
-                    id: user.id
+                    user
                 })
                 delete user.password
-                return { token, user }
+                return { token }
             } else {
                 throw new UnauthorizedException('Bad Credentials - pass')
             }
