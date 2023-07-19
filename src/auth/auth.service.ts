@@ -44,7 +44,7 @@ export class AuthService {
                     user
                 })
                 delete user.password
-                return { token }
+                return { token, user }
             } else {
                 throw new UnauthorizedException('Bad Credentials - pass')
             }
@@ -54,6 +54,9 @@ export class AuthService {
     async verifyPassword(password: string, hash: string) {
         return await bcrypt.compare(password, hash)
     }
+
+
+
     async findAll() {
         return await this.repo.find()
     }

@@ -1,17 +1,26 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { DepartmentModel } from './department.model';
 import { DepartmentService } from './department.service';
+import { AuthGuard } from '@nestjs/passport';
+import { ACGuard, UseRoles } from 'nest-access-control';
 
 @Controller('departments')
 export class DepartmentController {
     constructor(private departmentService: DepartmentService) { }
 
     @Get()
+    @UseGuards(AuthGuard('jwt'))
     get() {
         return this.departmentService.getAll()
     }
 
     @Post()
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    @UseRoles({
+        possession: 'any',
+        action: 'delete',
+        resource: 'class'
+    })
     createPost(@Body() dto: DepartmentModel) {
         return this.departmentService.create(dto)
     }

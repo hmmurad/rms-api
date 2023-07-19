@@ -35,6 +35,7 @@ export class StudentService {
                 });
             }
 
+
             if (queryKeys.includes('department')) {
                 myQuery.andWhere('department.id = :deptId', {
                     deptId: query['department'],
@@ -47,18 +48,9 @@ export class StudentService {
     }
 
 
-    // async find(id: number) {
-    //     const findStudent = await this.repo.findOneBy({ id })
 
-    //     if (findStudent) {
-    //         return findStudent
-    //     } else {
-    //         throw new BadRequestException('No Student found with this id!')
-    //     }
-    // }
-
-    async findStudentByRoll(roll: number) {
-        const findStudent = await this.repo.findOneBy({ roll })
+    async findStudentByRoll(id: number) {
+        const findStudent = await this.repo.findOneBy({ id })
 
         if (findStudent) {
             return findStudent

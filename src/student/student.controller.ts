@@ -16,16 +16,9 @@ export class StudentController {
         return this.studentService.create(dto)
     }
 
-    // @Get(':id')
-    // findOneById(@Param('id') id: number) {
-    //     return this.studentService.find(id)
-    // }
-
-
-
-    @Get(':roll')
-    findOneByRoll(@Param('roll') roll: number) {
-        return this.studentService.findStudentByRoll(roll)
+    @Get(':id')
+    findOneById(@Param('id') id: number) {
+        return this.studentService.findStudentByRoll(id)
     }
 
     @Get(':fullname')

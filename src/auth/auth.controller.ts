@@ -18,8 +18,8 @@ export class AuthController {
 
     @Post('signin')
     async signin(@Body() dto: UserModel) {
-        const { token } = await this.authService.login(dto)
-        return { token }
+        const { token, user } = await this.authService.login(dto)
+        return { token, user }
 
     }
 
