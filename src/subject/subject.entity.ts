@@ -1,5 +1,6 @@
 import { Class } from 'src/add-class/add-class.entity';
 import { User } from 'src/auth/auth.entity';
+import { Marks } from 'src/marks/marks.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('subjects')
@@ -24,6 +25,9 @@ export class Subject {
 
     @ManyToOne(() => Class, (c) => c.subjects)
     class: Class
+
+    @ManyToOne(() => Marks, (c) => c.subject)
+    marks: Marks
 
     @ManyToOne(() => User, (user) => user.subjects)
     user: User

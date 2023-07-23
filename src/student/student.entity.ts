@@ -3,7 +3,7 @@ import { Class } from 'src/add-class/add-class.entity';
 import { Department } from 'src/department/department.entity';
 import { Marks } from 'src/marks/marks.entity';
 import { Session } from 'src/session/add-session.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('students')
 export class Student {
@@ -16,8 +16,6 @@ export class Student {
     @Column()
     fullname: string;
 
-    @Column()
-    roll: number;
 
     @Column()
     email: string;
@@ -55,8 +53,16 @@ export class Student {
     class: Class
     @ManyToOne(() => Department, (d) => d.students)
     department: Department
-    @OneToMany(() => Marks, (marks) => marks.student)
+    @OneToMany(() => Marks, (marks) => marks.student, {
+        eager: true
+    })
     marks: Marks[]
+
+
+    // @BeforeInsert()
+    // modId() {
+    //     this.id = +(new Date().getFullYear() % 100 + '00' + this.id)
+    // }
 
 
 }

@@ -1,6 +1,6 @@
 export interface StudentModel {
+    id: number,
     fullname: string,
-    roll: number,
     email: string,
     dob: string,
     mobile: string,

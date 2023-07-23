@@ -1,12 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { MarksModel } from './marks.dto';
 import { MarksService } from './marks.service';
+import { AuthGuard } from '@nestjs/passport';
+import { ACGuard, UseRoles } from 'nest-access-control';
 
 @Controller('marks')
 export class MarksController {
     constructor(private marksService: MarksService) { }
 
     @Post('')
+    @UseGuards(AuthGuard('jwt'), ACGuard)
     create(@Body() dto: MarksModel) {
         return this.marksService.create(dto)
     }
@@ -15,17 +18,34 @@ export class MarksController {
     findAll(@Query() query?: any) {
         return this.marksService.getAll(query)
     }
-
-
-    @Get(':studentId')
-    get(@Param('studentId') studentId: any) {
-        return this.marksService.find(studentId)
+    @Get(':id')
+    @UseGuards(AuthGuard('jwt'), ACGuard)
+    find(@Param('id') id: number) {
+        return this.marksService.findOne(id)
     }
 
-    @Get('/student/:studentId')
-    getOne(@Param('studentId') studentId: any) {
-        return this.marksService.findOne(studentId)
+    @Patch(':id')
+    @UseRoles({
+        possession: 'any',
+        action: 'create',
+        resource: 'mark'
+    })
+    update(@Param('id') id: number, dto: any) {
+        return this.marksService.update(id, dto)
     }
+
+    @Delete(':id')
+    @UseRoles({
+        possession: 'any',
+        action: 'create',
+        resource: 'mark'
+    })
+    delete(@Param('id') id: number) {
+        return this.marksService.delete(id)
+    }
+
+
+
 
 
 

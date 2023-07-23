@@ -49,7 +49,7 @@ export class StudentService {
 
 
 
-    async findStudentByRoll(id: number) {
+    async findStudentById(id: number) {
         const findStudent = await this.repo.findOneBy({ id })
 
         if (findStudent) {
@@ -58,6 +58,7 @@ export class StudentService {
             throw new BadRequestException('No Student found with this roll!')
         }
     }
+
     async findByStudentname(fullname: string) {
         const findStudent = await this.repo.findOneBy({ fullname })
 

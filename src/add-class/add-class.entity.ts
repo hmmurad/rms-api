@@ -16,7 +16,7 @@ export class Class {
     classname: string;
 
     @Column()
-    departmentId: number;
+    departmentId: string;
 
     @OneToMany(() => Marks, (marks) => marks.class)
     marks: Marks[]

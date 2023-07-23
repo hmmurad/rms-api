@@ -18,8 +18,9 @@ export class StudentController {
 
     @Get(':id')
     findOneById(@Param('id') id: number) {
-        return this.studentService.findStudentByRoll(id)
+        return this.studentService.findStudentById(id)
     }
+
 
     @Get(':fullname')
     findByClassname(@Param('fullname') fullname: string) {

@@ -13,6 +13,12 @@ export class UserService {
         return await this.repo.find()
     }
 
+
+
+    async findOne(id: number) {
+        return await this.repo.findOneBy({ id })
+    }
+
     async update(id: number, dto: any) {
         const user = await this.repo.findOneBy({ id })
         if (user) {

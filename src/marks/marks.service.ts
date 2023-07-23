@@ -32,6 +32,7 @@ export class MarksService {
             .createQueryBuilder('marks')
             .leftJoinAndSelect('marks.class', 'class')
             .leftJoinAndSelect('marks.student', 'student')
+            .leftJoinAndSelect('marks.subject', 'subject')
             .leftJoinAndSelect('marks.exam', 'exam')
 
         if (Object.keys(query).length !== 0 && query.constructor === Object) {
@@ -51,6 +52,11 @@ export class MarksService {
             if (queryKeys.includes('student')) {
                 myQuery.andWhere('student.id = :studentId', {
                     studentId: query['student'],
+                });
+            }
+            if (queryKeys.includes('subject')) {
+                myQuery.andWhere('subject.id = :subjectId', {
+                    subjectId: query['subject'],
                 });
             }
             return await myQuery.getMany();

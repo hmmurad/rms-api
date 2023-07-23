@@ -13,20 +13,9 @@ export class ClassController {
 
 
     @Get()
-    @UseGuards(AuthGuard('jwt'), ACGuard)
-    @UseRoles({
-        possession: 'any',
-        action: 'read',
-        resource: 'class'
-    })
-    get(@Query() query: any, @currentUser() user: User) {
-        console.log(user);
+    get(@Query() query: any,) {
         return this.classService.getAll(query)
     }
-
-
-
-
     @Post()
     @UseGuards(AuthGuard('jwt'), ACGuard)
     @UseRoles({
@@ -69,7 +58,6 @@ export class ClassController {
         action: 'update',
         resource: 'class'
     })
-
     updateClass(@Param('id') id: number, @Body() dto: ClassModel) {
         return this.classService.update(id, dto)
     }

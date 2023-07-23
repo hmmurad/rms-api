@@ -11,7 +11,7 @@ export class ClassService {
     async create(dto: ClassModel) {
         const findClass = await this.repo.findOneBy({ classname: dto.classname })
         if (findClass) {
-            throw new BadRequestException('Class already exists!')
+            throw new BadRequestException()
 
         } else {
             this.repo.create(dto)
