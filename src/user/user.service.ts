@@ -29,4 +29,11 @@ export class UserService {
         }
     }
 
+
+    async delete(id: any) {
+        const user = await this.repo.delete(id)
+        if (user) return { user }
+        throw new BadRequestException('Something error occurred!')
+    }
+
 }
